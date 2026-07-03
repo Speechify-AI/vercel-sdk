@@ -1,0 +1,5 @@
+node_modules/
+dist/
+examples/smoke-output.mp3
+*.tsbuildinfo
+.env
