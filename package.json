@@ -1,0 +1,65 @@
+{
+  "name": "@speechify/ai-sdk-provider",
+  "version": "0.1.0",
+  "description": "Speechify text-to-speech provider for the Vercel AI SDK",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "smoke": "tsx examples/smoke.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/provider": "^4.0.2",
+    "@ai-sdk/provider-utils": "^5.0.5"
+  },
+  "peerDependencies": {
+    "zod": "^3.25.76 || ^4.1.8"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "ai": "^7.0.14",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4",
+    "zod": "^4.1.8"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ai",
+    "ai-sdk",
+    "vercel-ai-sdk",
+    "speechify",
+    "tts",
+    "text-to-speech",
+    "speech"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SpeechifyInc/speechify-ai-sdk-provider.git"
+  },
+  "homepage": "https://docs.speechify.ai",
+  "publishConfig": {
+    "access": "public"
+  }
+}
