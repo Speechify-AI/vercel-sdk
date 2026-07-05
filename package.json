@@ -1,5 +1,5 @@
 {
-  "name": "@speechify/ai-sdk-provider",
+  "name": "@speechify/vercel",
   "version": "0.1.0",
   "description": "Speechify text-to-speech provider for the Vercel AI SDK",
   "license": "MIT",
@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "@ai-sdk/provider": "^4.0.2",
-    "@ai-sdk/provider-utils": "^5.0.5"
+    "@ai-sdk/provider-utils": "^5.0.5",
+    "@speechify/api": "^2.0.0"
   },
   "peerDependencies": {
     "zod": "^3.25.76 || ^4.1.8"
@@ -56,7 +57,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/SpeechifyInc/speechify-api-sdk-vercel.git"
+    "url": "git+https://github.com/speechify-ai/vercel-sdk.git"
   },
   "homepage": "https://docs.speechify.ai",
   "publishConfig": {

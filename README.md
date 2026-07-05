@@ -1,11 +1,11 @@
 # Speechify provider for the Vercel AI SDK
 
-The **[Speechify](https://speechify.ai)** provider for the [Vercel AI SDK](https://ai-sdk.dev) adds Speechify's text-to-speech models to the AI SDK's unified speech interface — switch from OpenAI, ElevenLabs, or Deepgram to Speechify with a one-line model swap.
+The **[Speechify](https://speechify.ai)** provider for the [Vercel AI SDK](https://ai-sdk.dev) adds Speechify's text-to-speech models to the AI SDK's unified speech interface — switch from OpenAI, ElevenLabs, or Deepgram to Speechify with a one-line model swap. It is a thin bridge over the official [`@speechify/api`](https://www.npmjs.com/package/@speechify/api) client.
 
 ## Setup
 
 ```bash
-npm install @speechify/ai-sdk-provider ai
+npm install @speechify/vercel ai
 ```
 
 Get an API key from the [Speechify Console](https://console.sws.speechify.com) and set it as `SPEECHIFY_API_KEY`.
@@ -13,7 +13,7 @@ Get an API key from the [Speechify Console](https://console.sws.speechify.com) a
 ## Usage
 
 ```ts
-import { speechify } from '@speechify/ai-sdk-provider';
+import { speechify } from '@speechify/vercel';
 import { generateSpeech } from 'ai';
 
 const { audio } = await generateSpeech({
@@ -26,7 +26,7 @@ const { audio } = await generateSpeech({
 To customize the API key, base URL, or headers, create your own provider instance:
 
 ```ts
-import { createSpeechify } from '@speechify/ai-sdk-provider';
+import { createSpeechify } from '@speechify/vercel';
 
 const speechify = createSpeechify({
   apiKey: process.env.MY_SPEECHIFY_KEY,

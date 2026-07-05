@@ -72,7 +72,7 @@ describe('doGenerate', () => {
     await createModel(mock).doGenerate({ text: 'hi' });
 
     expect(mock.calls[0].url).toBe(
-      'https://api.sws.speechify.com/v1/audio/speech',
+      'https://api.speechify.ai/v1/audio/speech',
     );
     const headers = new Headers(mock.calls[0].init.headers as HeadersInit);
     expect(headers.get('authorization')).toBe('Bearer test-key');
@@ -216,6 +216,23 @@ describe('doGenerate', () => {
         APICallError.isInstance(error) &&
         error.message === 'Invalid voice_id',
     );
+  });
+
+  it('does not retry inside the SDK client (the AI SDK owns retries)', async () => {
+    const mock = createMockFetch(
+      { error: { code: 'internal', message: 'boom' } },
+      { status: 500 },
+    );
+
+    await expect(
+      createModel(mock).doGenerate({ text: 'hi' }),
+    ).rejects.toSatisfy(
+      (error: unknown) =>
+        APICallError.isInstance(error) &&
+        error.message === 'boom' &&
+        error.isRetryable === true,
+    );
+    expect(mock.calls).toHaveLength(1);
   });
 
   it('passes through custom request headers', async () => {

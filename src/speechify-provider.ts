@@ -6,11 +6,10 @@ import {
   withoutTrailingSlash,
   type FetchFunction,
 } from '@ai-sdk/provider-utils';
+import { SpeechifyClient } from '@speechify/api';
 import type { SpeechifySpeechModelId } from './speechify-api-types';
 import { SpeechifySpeechModel } from './speechify-speech-model';
 import { VERSION } from './version';
-
-const DEFAULT_BASE_URL = 'https://api.sws.speechify.com';
 
 export interface SpeechifyProvider {
   /**
@@ -36,7 +35,8 @@ export interface SpeechifyProviderSettings {
   apiKey?: string;
 
   /**
-   * Base URL of the Speechify API. Defaults to `https://api.sws.speechify.com`.
+   * Base URL of the Speechify API. Defaults to the `@speechify/api`
+   * client's default environment (`https://api.speechify.ai`).
    */
   baseURL?: string;
 
@@ -54,30 +54,33 @@ export interface SpeechifyProviderSettings {
 export function createSpeechify(
   options: SpeechifyProviderSettings = {},
 ): SpeechifyProvider {
-  const baseURL =
-    withoutTrailingSlash(options.baseURL) ?? DEFAULT_BASE_URL;
+  const baseURL = withoutTrailingSlash(options.baseURL);
 
-  const getHeaders = () =>
-    withUserAgentSuffix(
-      {
-        Authorization: `Bearer ${loadApiKey({
-          apiKey: options.apiKey,
-          environmentVariableName: 'SPEECHIFY_API_KEY',
-          description: 'Speechify',
-        })}`,
-        ...options.headers,
-      },
+  // The bridge delegates transport to the official @speechify/api client.
+  // maxRetries is 0 because the AI SDK applies its own retry policy on
+  // top of `doGenerate`.
+  const client = new SpeechifyClient({
+    apiKey: () =>
+      loadApiKey({
+        apiKey: options.apiKey,
+        environmentVariableName: 'SPEECHIFY_API_KEY',
+        description: 'Speechify',
+      }),
+    ...(baseURL != null && { baseUrl: baseURL }),
+    headers: withUserAgentSuffix(
+      { ...options.headers },
       `ai-sdk/speechify/${VERSION}`,
-    );
+    ),
+    fetch: options.fetch as typeof fetch | undefined,
+    maxRetries: 0,
+  });
 
   const createSpeechModel = (
     modelId: SpeechifySpeechModelId = 'simba-english',
   ) =>
     new SpeechifySpeechModel(modelId, {
       provider: 'speechify.speech',
-      url: ({ path }) => `${baseURL}${path}`,
-      headers: getHeaders,
-      fetch: options.fetch,
+      client,
     });
 
   const provider = function (modelId?: SpeechifySpeechModelId) {

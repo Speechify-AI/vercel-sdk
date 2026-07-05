@@ -1,4 +1,4 @@
-# @speechify/ai-sdk-provider
+# @speechify/vercel
 
 ## 0.1.0
 

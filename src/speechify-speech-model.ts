@@ -5,21 +5,25 @@ import type {
   SpeechModelV4CallOptions,
 } from '@ai-sdk/provider';
 import {
-  combineHeaders,
   convertBase64ToUint8Array,
-  createJsonResponseHandler,
   parseProviderOptions,
-  postJsonToApi,
 } from '@ai-sdk/provider-utils';
-import type { SpeechifyConfig } from './speechify-config';
-import { speechifyFailedResponseHandler } from './speechify-error';
-import {
-  speechifySpeechResponseSchema,
-  type SpeechifySpeechAudioFormat,
-  type SpeechifySpeechModelId,
-  type SpeechifySpeechRequest,
+import type { Speechify, SpeechifyClient } from '@speechify/api';
+import { convertSpeechifyError } from './speechify-error';
+import type {
+  SpeechifySpeechAudioFormat,
+  SpeechifySpeechModelId,
+  SpeechifySpeechRequest,
 } from './speechify-api-types';
 import { speechifySpeechProviderOptionsSchema } from './speechify-speech-options';
+
+export type SpeechifySpeechModelConfig = {
+  provider: string;
+  client: SpeechifyClient;
+  _internal?: {
+    currentDate?: () => Date;
+  };
+};
 
 // Speechify requires a voice_id on every request; "george" is a shared
 // voice available to all API keys, so one-line `generateSpeech` calls work.
@@ -45,7 +49,7 @@ export class SpeechifySpeechModel implements SpeechModelV4 {
 
   constructor(
     readonly modelId: SpeechifySpeechModelId,
-    private readonly config: SpeechifyConfig,
+    private readonly config: SpeechifySpeechModelConfig,
   ) {}
 
   private async getArgs({
@@ -100,7 +104,7 @@ export class SpeechifySpeechModel implements SpeechModelV4 {
     const body: SpeechifySpeechRequest = {
       input,
       voice_id: voice ?? DEFAULT_VOICE_ID,
-      model: this.modelId,
+      model: this.modelId as Speechify.GetSpeechRequest.Model,
     };
 
     if (language != null) {
@@ -150,21 +154,20 @@ export class SpeechifySpeechModel implements SpeechModelV4 {
 
     const { body, warnings } = await this.getArgs(options);
 
-    const {
-      value: response,
-      responseHeaders,
-      rawValue: rawResponse,
-    } = await postJsonToApi({
-      url: this.config.url({ path: '/v1/audio/speech' }),
-      headers: combineHeaders(this.config.headers(), options.headers),
-      body,
-      failedResponseHandler: speechifyFailedResponseHandler,
-      successfulResponseHandler: createJsonResponseHandler(
-        speechifySpeechResponseSchema,
-      ),
-      abortSignal: options.abortSignal,
-      fetch: this.config.fetch,
-    });
+    let response: Speechify.GetSpeechResponse;
+    let responseHeaders: Record<string, string> | undefined;
+    try {
+      const { data, rawResponse } = await this.config.client.audio
+        .speech(body, {
+          abortSignal: options.abortSignal,
+          headers: options.headers,
+        })
+        .withRawResponse();
+      response = data;
+      responseHeaders = Object.fromEntries(rawResponse.headers.entries());
+    } catch (error) {
+      throw convertSpeechifyError(error, body);
+    }
 
     return {
       audio: convertBase64ToUint8Array(response.audio_data),
@@ -176,14 +179,14 @@ export class SpeechifySpeechModel implements SpeechModelV4 {
         timestamp: currentDate,
         modelId: this.modelId,
         headers: responseHeaders,
-        body: rawResponse,
+        body: response as unknown as JSONValue,
       },
       providerMetadata: {
         speechify: {
           audioFormat: response.audio_format ?? null,
           billableCharactersCount:
             response.billable_characters_count ?? null,
-          speechMarks: (response.speech_marks ?? null) as JSONValue,
+          speechMarks: (response.speech_marks ?? null) as unknown as JSONValue,
         },
       },
     };

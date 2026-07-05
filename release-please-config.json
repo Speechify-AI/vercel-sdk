@@ -5,7 +5,7 @@
   "include-component-in-tag": false,
   "packages": {
     ".": {
-      "package-name": "@speechify/ai-sdk-provider",
+      "package-name": "@speechify/vercel",
       "extra-files": [
         {
           "type": "generic",

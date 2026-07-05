@@ -14,6 +14,9 @@ importers:
       '@ai-sdk/provider-utils':
         specifier: ^5.0.5
         version: 5.0.5(zod@4.4.3)
+      '@speechify/api':
+        specifier: ^2.0.0
+        version: 2.0.0
     devDependencies:
       '@types/node':
         specifier: ^26.1.0
@@ -517,6 +520,10 @@ packages:
     resolution: {integrity: sha512-BfzEnDJOt9T8M989/lA37EcJgat01wLRnoi5dQf3QzOH7jzpqTAzdDbVfRljVr5r+jzKqpbHeyOfAaXxAd0PAA==}
     cpu: [x64]
     os: [win32]
+
+  '@speechify/api@2.0.0':
+    resolution: {integrity: sha512-GYIYO/B0bRArg9e4ljLxHL/ZG27p7X68UGu6bvEqBk0I8CSpqPKHO+rsGGJR+oIRzXZpR5LVNcS6RPN0ljnvNw==}
+    engines: {node: '>=18.0.0'}
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -1217,6 +1224,8 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.62.2':
     optional: true
+
+  '@speechify/api@2.0.0': {}
 
   '@standard-schema/spec@1.1.0': {}
 
