@@ -100,7 +100,7 @@ describe('doGenerate', () => {
     await createModel(mock).doGenerate({ text: 'hi' });
 
     expect(mock.body()).toMatchObject({
-      voice_id: 'simba',
+      voice_id: 'geffen_32',
       model: 'simba-3.2',
     });
   });

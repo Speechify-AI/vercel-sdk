@@ -17,7 +17,7 @@ import { speechify } from '@speechify/vercel';
 import { generateSpeech } from 'ai';
 
 const { audio } = await generateSpeech({
-  model: speechify.speech(), // simba-3.2, voice "simba"
+  model: speechify.speech(), // simba-3.2, voice "geffen_32"
   text: 'Hello from Speechify!',
 });
 ```
@@ -43,7 +43,7 @@ const speechify = createSpeechify({
 
 ## Voices
 
-The `voice` option takes a Speechify voice ID (e.g. `simba`, `george`, `scott`), including your own cloned voices. Defaults to `simba` when omitted. List available voices with `GET /v1/voices` ([docs](https://docs.speechify.ai/tts/api-reference/v1/voices/get)) — each voice's `models` field shows which models it supports; `simba-3.2` serves a curated subset of shared voices (cloned voices are not in it).
+The `voice` option takes a Speechify voice ID, including your own cloned voices. Defaults to `geffen_32` when omitted. The `simba-3.2` curated set is currently: `beatrice_32`, `dominic_32`, `edmund_32`, `geffen_32`, `harper_32`, `hugh_32`, `imogen_32`, `wyatt_32`; voices like `george` and `scott` work with the 1.6 models. List available voices with `GET /v1/voices` ([docs](https://docs.speechify.ai/tts/api-reference/v1/voices/get)) — each voice's `models` field shows which models it supports; `simba-3.2` serves a curated subset of shared voices (cloned voices are not in it).
 
 ## Output formats
 
