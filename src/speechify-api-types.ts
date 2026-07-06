@@ -1,7 +1,10 @@
 import type { Speechify } from '@speechify/api';
 
+// 'simba-3.2' (the recommended Simba 3 model) is in the live API but not
+// in the generated SDK's Model union yet, so it is added explicitly.
 export type SpeechifySpeechModelId =
   | Speechify.GetSpeechRequest.Model
+  | 'simba-3.2'
   | (string & {});
 
 export type SpeechifySpeechAudioFormat = Speechify.GetSpeechRequest.AudioFormat;

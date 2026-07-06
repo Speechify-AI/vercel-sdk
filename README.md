@@ -17,9 +17,8 @@ import { speechify } from '@speechify/vercel';
 import { generateSpeech } from 'ai';
 
 const { audio } = await generateSpeech({
-  model: speechify.speech('simba-english'),
+  model: speechify.speech(), // simba-3.2, voice "simba"
   text: 'Hello from Speechify!',
-  voice: 'george',
 });
 ```
 
@@ -37,13 +36,14 @@ const speechify = createSpeechify({
 
 | Model ID | Description |
 | --- | --- |
-| `simba-english` | English-optimized TTS (default) |
-| `simba-multilingual` | Multilingual TTS |
-| `simba-3.0` | Latest-generation model |
+| `simba-3.2` | Latest-generation streaming-native model, lower latency and richer expressivity (default). English only; serves a curated voice set. |
+| `simba-english` | English-optimized TTS |
+| `simba-multilingual` | Multilingual TTS — use this for non-English input |
+| `simba-3.0` | Earlier Simba 3 model, still available |
 
 ## Voices
 
-The `voice` option takes a Speechify voice ID (e.g. `george`, `scott`), including your own cloned voices. Defaults to `george` when omitted. List available voices with `GET /v1/voices` ([docs](https://docs.speechify.ai/tts/api-reference/v1/voices/get)).
+The `voice` option takes a Speechify voice ID (e.g. `simba`, `george`, `scott`), including your own cloned voices. Defaults to `simba` when omitted. List available voices with `GET /v1/voices` ([docs](https://docs.speechify.ai/tts/api-reference/v1/voices/get)) — each voice's `models` field shows which models it supports; `simba-3.2` serves a curated subset of shared voices (cloned voices are not in it).
 
 ## Output formats
 

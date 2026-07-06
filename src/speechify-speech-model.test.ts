@@ -64,7 +64,7 @@ describe('doGenerate', () => {
       (result.providerMetadata?.speechify as { speechMarks: { chunks: unknown[] } })
         .speechMarks.chunks,
     ).toHaveLength(1);
-    expect(result.response.modelId).toBe('simba-english');
+    expect(result.response.modelId).toBe('simba-3.2');
   });
 
   it('posts to /v1/audio/speech with bearer auth and user agent', async () => {
@@ -100,8 +100,8 @@ describe('doGenerate', () => {
     await createModel(mock).doGenerate({ text: 'hi' });
 
     expect(mock.body()).toMatchObject({
-      voice_id: 'george',
-      model: 'simba-english',
+      voice_id: 'simba',
+      model: 'simba-3.2',
     });
   });
 

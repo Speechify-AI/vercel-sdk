@@ -76,7 +76,7 @@ export function createSpeechify(
   });
 
   const createSpeechModel = (
-    modelId: SpeechifySpeechModelId = 'simba-english',
+    modelId: SpeechifySpeechModelId = 'simba-3.2',
   ) =>
     new SpeechifySpeechModel(modelId, {
       provider: 'speechify.speech',

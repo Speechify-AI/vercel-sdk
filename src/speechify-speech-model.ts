@@ -25,9 +25,10 @@ export type SpeechifySpeechModelConfig = {
   };
 };
 
-// Speechify requires a voice_id on every request; "george" is a shared
-// voice available to all API keys, so one-line `generateSpeech` calls work.
-const DEFAULT_VOICE_ID = 'george';
+// Speechify requires a voice_id on every request; "simba" is a shared
+// voice in the simba-3.2 curated set, so one-line `generateSpeech` calls
+// work with the default model.
+const DEFAULT_VOICE_ID = 'simba';
 
 const SIMPLE_AUDIO_FORMATS: ReadonlySet<string> = new Set([
   'wav',

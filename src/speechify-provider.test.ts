@@ -21,9 +21,9 @@ describe('createSpeechify', () => {
     }
   });
 
-  it('defaults modelId to simba-english', () => {
+  it('defaults modelId to simba-3.2', () => {
     expect(createSpeechify({ apiKey: 'k' }).speech().modelId).toBe(
-      'simba-english',
+      'simba-3.2',
     );
   });
 
