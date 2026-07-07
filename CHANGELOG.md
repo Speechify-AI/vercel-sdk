@@ -1,5 +1,12 @@
 # @speechify/vercel
 
+## [0.2.2](https://github.com/Speechify-AI/vercel-sdk/compare/0.2.1...0.2.2) (2026-07-07)
+
+
+### Bug Fixes
+
+* match repository.url casing to Speechify-AI for provenance validation ([#6](https://github.com/Speechify-AI/vercel-sdk/issues/6)) ([30552a2](https://github.com/Speechify-AI/vercel-sdk/commit/30552a21ec96ccb6f09e58b8f6ebfdaf7e8051b8))
+
 ## [0.2.1](https://github.com/Speechify-AI/vercel-sdk/compare/0.2.0...0.2.1) (2026-07-07)
 
 
