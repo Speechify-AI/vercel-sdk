@@ -8,7 +8,7 @@ The **[Speechify](https://speechify.ai)** provider for the [Vercel AI SDK](https
 npm install @speechify/vercel ai
 ```
 
-Get an API key from the [Speechify Console](https://console.sws.speechify.com) and set it as `SPEECHIFY_API_KEY`.
+Get an API key from the [Speechify Platform](https://platform.speechify.ai) and set it as `SPEECHIFY_API_KEY`.
 
 ## Usage
 
