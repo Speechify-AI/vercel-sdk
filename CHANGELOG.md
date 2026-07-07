@@ -1,5 +1,12 @@
 # @speechify/vercel
 
+## [0.2.1](https://github.com/Speechify-AI/vercel-sdk/compare/0.2.0...0.2.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* append ai-sdk marker to the SDK User-Agent instead of replacing it ([#3](https://github.com/Speechify-AI/vercel-sdk/issues/3)) ([c9d1659](https://github.com/Speechify-AI/vercel-sdk/commit/c9d1659e6cb58a08f9b7fb17099fc8da1b0bfef0))
+
 ## [0.2.0](https://github.com/Speechify-AI/vercel-sdk/compare/0.1.0...0.2.0) (2026-07-06)
 
 
