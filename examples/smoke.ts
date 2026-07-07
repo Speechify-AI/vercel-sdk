@@ -13,10 +13,9 @@ import { createSpeechify, speechify } from '../src/index';
 
 async function main() {
   const result = await generateSpeech({
-    // defaults: model simba-3.2, voice "geffen_32"
+    // defaults: model simba-3.2, voice "geffen_32", mp3 output
     model: speechify.speech(),
     text: 'Hello from the Vercel AI SDK. This is Speechify text to speech.',
-    outputFormat: 'mp3',
   });
 
   const audio = result.audio.uint8Array;

@@ -132,6 +132,12 @@ export class SpeechifySpeechModel implements SpeechModelV4 {
       }
     }
 
+    // Default to mp3 rather than the server default (currently wav, ~9x
+    // larger, and documented as subject to change).
+    if (body.output_format == null && body.audio_format == null) {
+      body.audio_format = 'mp3';
+    }
+
     if (
       speechifyOptions?.loudnessNormalization != null ||
       speechifyOptions?.textNormalization != null

@@ -47,7 +47,7 @@ The `voice` option takes a Speechify voice ID, including your own cloned voices.
 
 ## Output formats
 
-The standard `outputFormat` option accepts either a simple format name — `mp3`, `wav`, `ogg`, `aac`, `pcm` — or a Speechify codec string with sample rate and bitrate, e.g. `mp3_24000_128`, `pcm_16000`, `ulaw_8000` (useful for telephony).
+The standard `outputFormat` option accepts either a simple format name — `mp3`, `wav`, `ogg`, `aac`, `pcm` — or a Speechify codec string with sample rate and bitrate, e.g. `mp3_24000_128`, `pcm_16000`, `ulaw_8000` (useful for telephony). Defaults to `mp3` when omitted.
 
 ## Speed, emotion, and SSML
 
