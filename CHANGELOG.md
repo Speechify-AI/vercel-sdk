@@ -1,5 +1,12 @@
 # @speechify/vercel
 
+## [0.3.0](https://github.com/Speechify-AI/vercel-sdk/compare/0.2.2...0.3.0) (2026-07-07)
+
+
+### Features
+
+* default output format to mp3 ([#8](https://github.com/Speechify-AI/vercel-sdk/issues/8)) ([bc68f56](https://github.com/Speechify-AI/vercel-sdk/commit/bc68f56f30d98870e971087ae4d6e155440f21ab))
+
 ## [0.2.2](https://github.com/Speechify-AI/vercel-sdk/compare/0.2.1...0.2.2) (2026-07-07)
 
 
