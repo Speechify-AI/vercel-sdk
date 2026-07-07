@@ -107,6 +107,7 @@ describe('doGenerate', () => {
     expect(mock.body()).toMatchObject({
       voice_id: 'geffen_32',
       model: 'simba-3.2',
+      audio_format: 'mp3',
     });
   });
 
@@ -129,14 +130,14 @@ describe('doGenerate', () => {
     expect(mock.body().audio_format).toBeUndefined();
   });
 
-  it('warns on unknown outputFormat and omits it', async () => {
+  it('warns on unknown outputFormat and falls back to mp3', async () => {
     const mock = createMockFetch();
     const result = await createModel(mock).doGenerate({
       text: 'hi',
       outputFormat: 'flac',
     });
 
-    expect(mock.body().audio_format).toBeUndefined();
+    expect(mock.body().audio_format).toBe('mp3');
     expect(mock.body().output_format).toBeUndefined();
     expect(result.warnings).toEqual([
       expect.objectContaining({ type: 'unsupported', feature: 'outputFormat: flac' }),
