@@ -1,6 +1,6 @@
 {
   "name": "@speechify/vercel",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "SpeechifyAI text-to-speech provider for the Vercel AI SDK",
   "license": "MIT",
   "type": "module",
