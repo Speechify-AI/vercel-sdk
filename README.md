@@ -1,6 +1,6 @@
-# Speechify provider for the Vercel AI SDK
+# SpeechifyAI provider for the Vercel AI SDK
 
-The **[Speechify](https://speechify.ai)** provider for the [Vercel AI SDK](https://ai-sdk.dev) adds Speechify's text-to-speech models to the AI SDK's unified speech interface — switch from OpenAI, ElevenLabs, or Deepgram to Speechify with a one-line model swap. It is a thin bridge over the official [`@speechify/api`](https://www.npmjs.com/package/@speechify/api) client.
+The **[SpeechifyAI](https://speechify.ai)** provider for the [Vercel AI SDK](https://ai-sdk.dev) adds SpeechifyAI's text-to-speech models to the AI SDK's unified speech interface — switch from OpenAI, ElevenLabs, or Deepgram to SpeechifyAI with a one-line model swap. It is a thin bridge over the official [`@speechify/api`](https://www.npmjs.com/package/@speechify/api) client.
 
 ## Setup
 
@@ -8,7 +8,7 @@ The **[Speechify](https://speechify.ai)** provider for the [Vercel AI SDK](https
 npm install @speechify/vercel ai
 ```
 
-Get an API key from the [Speechify Platform](https://platform.speechify.ai) and set it as `SPEECHIFY_API_KEY`.
+Get an API key from the [SpeechifyAI Platform](https://platform.speechify.ai) and set it as `SPEECHIFY_API_KEY`.
 
 ## Usage
 
@@ -43,15 +43,15 @@ const speechify = createSpeechify({
 
 ## Voices
 
-The `voice` option takes a Speechify voice ID, including your own cloned voices. Defaults to `geffen_32` when omitted. The `simba-3.2` curated set is currently: `beatrice_32`, `dominic_32`, `edmund_32`, `geffen_32`, `harper_32`, `hugh_32`, `imogen_32`, `wyatt_32`; voices like `george` and `scott` work with the 1.6 models. List available voices with `GET /v1/voices` ([docs](https://docs.speechify.ai/tts/api-reference/v1/voices/get)) — each voice's `models` field shows which models it supports; `simba-3.2` serves a curated subset of shared voices (cloned voices are not in it).
+The `voice` option takes a SpeechifyAI voice ID, including your own cloned voices. Defaults to `geffen_32` when omitted. The `simba-3.2` curated set is currently: `beatrice_32`, `dominic_32`, `edmund_32`, `geffen_32`, `harper_32`, `hugh_32`, `imogen_32`, `wyatt_32`; voices like `george` and `scott` work with the 1.6 models. List available voices with `GET /v1/voices` ([docs](https://docs.speechify.ai/tts/api-reference/v1/voices/get)) — each voice's `models` field shows which models it supports; `simba-3.2` serves a curated subset of shared voices (cloned voices are not in it).
 
 ## Output formats
 
-The standard `outputFormat` option accepts either a simple format name — `mp3`, `wav`, `ogg`, `aac`, `pcm` — or a Speechify codec string with sample rate and bitrate, e.g. `mp3_24000_128`, `pcm_16000`, `ulaw_8000` (useful for telephony). Defaults to `mp3` when omitted.
+The standard `outputFormat` option accepts either a simple format name — `mp3`, `wav`, `ogg`, `aac`, `pcm` — or a SpeechifyAI codec string with sample rate and bitrate, e.g. `mp3_24000_128`, `pcm_16000`, `ulaw_8000` (useful for telephony). Defaults to `mp3` when omitted.
 
 ## Speed, emotion, and SSML
 
-Speechify controls prosody through [SSML](https://docs.speechify.ai/docs/ssml). The standard `speed` option is implemented by wrapping your text in `<speak><prosody rate="...">`:
+SpeechifyAI controls prosody through [SSML](https://docs.speechify.ai/docs/ssml). The standard `speed` option is implemented by wrapping your text in `<speak><prosody rate="...">`:
 
 ```ts
 await generateSpeech({
@@ -82,7 +82,7 @@ await generateSpeech({
 
 ## Speech marks (word timing)
 
-Speechify returns word- and sentence-level timing data with every generation, available via provider metadata:
+SpeechifyAI returns word- and sentence-level timing data with every generation, available via provider metadata:
 
 ```ts
 const result = await generateSpeech({
@@ -96,5 +96,5 @@ const { speechMarks, billableCharactersCount } =
 
 ## Limitations
 
-- Text-to-speech only — Speechify has no transcription API, so there is no transcription model.
-- The AI SDK speech interface is request/response; Speechify's streaming endpoint (`/v1/audio/stream`) is not yet exposed through this provider.
+- Text-to-speech only — SpeechifyAI has no transcription API, so there is no transcription model.
+- The AI SDK speech interface is request/response; SpeechifyAI's streaming endpoint (`/v1/audio/stream`) is not yet exposed through this provider.
