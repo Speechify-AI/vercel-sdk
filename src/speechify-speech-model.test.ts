@@ -76,7 +76,12 @@ describe('doGenerate', () => {
     );
     const headers = new Headers(mock.calls[0].init.headers as HeadersInit);
     expect(headers.get('authorization')).toBe('Bearer test-key');
-    expect(headers.get('user-agent')).toContain('ai-sdk/speechify/');
+    // Compound UA: the @speechify/api client's own UA must survive with
+    // our marker appended, so API-side telemetry can attribute this
+    // traffic both as SDK-derived and as the Vercel AI SDK provider.
+    expect(headers.get('user-agent')).toMatch(
+      /@speechify\/api\/[\d.]+.* ai-sdk\/speechify\/[\d.]+/,
+    );
   });
 
   it('maps text, voice, model, and language', async () => {
