@@ -57,7 +57,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/speechify-ai/vercel-sdk.git"
+    "url": "git+https://github.com/Speechify-AI/vercel-sdk.git"
   },
   "homepage": "https://docs.speechify.ai",
   "publishConfig": {
