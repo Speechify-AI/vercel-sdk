@@ -2,7 +2,6 @@ import { NoSuchModelError } from '@ai-sdk/provider';
 import type { SpeechModelV4 } from '@ai-sdk/provider';
 import {
   loadApiKey,
-  withUserAgentSuffix,
   withoutTrailingSlash,
   type FetchFunction,
 } from '@ai-sdk/provider-utils';
@@ -10,6 +9,30 @@ import { SpeechifyClient } from '@speechify/api';
 import type { SpeechifySpeechModelId } from './speechify-api-types';
 import { SpeechifySpeechModel } from './speechify-speech-model';
 import { VERSION } from './version';
+
+const USER_AGENT_SUFFIX = `ai-sdk/speechify/${VERSION}`;
+
+// Appends our marker to the User-Agent the @speechify/api client sets
+// (e.g. "@speechify/api/2.0.0 ai-sdk/speechify/0.2.0"). Passing the
+// suffix as a client header would *replace* the SDK's User-Agent and
+// make this traffic unattributable as SDK-derived, so it is appended
+// at the fetch layer instead.
+function withUserAgentSuffixFetch(
+  baseFetch: FetchFunction | undefined,
+): FetchFunction {
+  const fetchImpl = (baseFetch ?? globalThis.fetch) as typeof fetch;
+  return async (input, init) => {
+    const headers = new Headers(init?.headers);
+    const existing = headers.get('user-agent');
+    headers.set(
+      'user-agent',
+      existing != null && !existing.includes(USER_AGENT_SUFFIX)
+        ? `${existing} ${USER_AGENT_SUFFIX}`
+        : (existing ?? USER_AGENT_SUFFIX),
+    );
+    return fetchImpl(input, { ...init, headers });
+  };
+}
 
 export interface SpeechifyProvider {
   /**
@@ -67,11 +90,8 @@ export function createSpeechify(
         description: 'Speechify',
       }),
     ...(baseURL != null && { baseUrl: baseURL }),
-    headers: withUserAgentSuffix(
-      { ...options.headers },
-      `ai-sdk/speechify/${VERSION}`,
-    ),
-    fetch: options.fetch as typeof fetch | undefined,
+    headers: { ...options.headers },
+    fetch: withUserAgentSuffixFetch(options.fetch) as typeof fetch,
     maxRetries: 0,
   });
 
